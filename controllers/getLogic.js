@@ -5,7 +5,9 @@ const getUser  = async (req, res) => {
     try {
         const result = await prisma.user.findMany({
             include: {
-                posts: true
+                posts: true,
+                followers: true,
+                following : true
             }
         })
         res.send(result)

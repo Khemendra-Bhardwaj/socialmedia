@@ -40,12 +40,34 @@ async function deleteAllPost(userid) {
         }
     })
 }
+
+
+const deleteFollowUnfollow  = async(userid)=>{
+    try{
+       await  prisma.userFollow.deleteMany({
+            where:{
+                OR:[
+                    {followingId: parseInt(userid,10)} ,
+                    {followerId: parseInt(userid,10)},
+                ] 
+            }
+        })
+        // res.json({message : "Deleted all followers and following  "})
+    }
+    catch(err){
+        console.log(err);
+        // res.status(500).json({error : "Can't delete user : due to unfollow-follow referencial"})
+    }
+}
+
+/// on deleting a user : delete all its follow and unfollow []
 const deleteUser  = async (req, res) => {
     const userid = parseInt(req.params.id, 10)
     console.log("User id " + userid);
     try {
 
-        await deleteAllPost(userid) // referencaial intergirity rule ! 
+        await deleteFollowUnfollow(userid)
+        await deleteAllPost(userid) // referencial intergirity rule ! 
 
         await prisma.user.delete({
             where: {
