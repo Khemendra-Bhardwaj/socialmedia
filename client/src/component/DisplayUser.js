@@ -1,11 +1,7 @@
 import  React, { useEffect, useState }  from 'react'
 import axios from 'axios'
 
-
-
 const UserProfile = ({userId})=>{
-
-
 
     const [followers, setFollowers] = useState([])
     const [following, setFollowing] = useState([])
@@ -21,15 +17,13 @@ const UserProfile = ({userId})=>{
 
     },[] )
 
-
-
     return (
     <>
         <div> 
             {/* fetch name email followers  following liked comments-add  posts-pushed */}
             <hi> Name {name} </hi>
         </div>
-
+        
     </>
     )
 }

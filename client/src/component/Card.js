@@ -39,13 +39,17 @@ const Card = ({ title, content,postid , userid }) => { //  received postid as pr
     }
   } // TODO : after updating comment : New Comment Should reflecte simiulatenouly 
 
-
+  const handleUserClick = () => {
+    window.open(`/user/${userid}`, '_blank'); // Opens new tab with user profile page
+  };
   
 
   return (
     <div className="card">
       {/* fetch user-name from userid  */}
-      <h2 className='user-name'>  dummy-user-name-asofNow </h2>
+      <h2 className='user-name' onClick={handleUserClick} style={{ cursor: 'pointer' }} >  dummy-user-name-asofNow </h2>
+
+
       <h2 className="card-title">{title}</h2>
       <p className="card-content">{content} </p>
       <button className="card-button" onClick={handleFetchComments}>Comments</button>
