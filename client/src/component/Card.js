@@ -6,8 +6,18 @@ import './Card.css';
 const Card = ({ title, content,postid , userid }) => { //  received postid as prop from App.js
   const [comments, setComments] = useState([])
   const [userComment, setUserComment] = useState('')
+  const [userName, setUserName]  = useState("Dummy-Name-AsofNow") 
 
-  
+  useEffect( ()=>{
+    const getUserName = async()=>{
+      const response = await axios.get(`http://localhost:5000/users/${userid}`);   
+      const receivedName = response.data[0].name
+      setUserName(receivedName) 
+    }
+    getUserName()
+  }
+, [] )
+
   const handleFetchComments = async()=>{
     try{
       const response = await axios.get(`http://localhost:5000/comments/${postid}`)
@@ -47,7 +57,7 @@ const Card = ({ title, content,postid , userid }) => { //  received postid as pr
   return (
     <div className="card">
       {/* fetch user-name from userid  */}
-      <h2 className='user-name' onClick={handleUserClick} style={{ cursor: 'pointer' }} >  dummy-user-name-asofNow </h2>
+      <h4 className='user-name' onClick={handleUserClick} style={{ cursor: 'pointer' }} > Author {userName}  </h4>
 
 
       <h2 className="card-title">{title}</h2>
