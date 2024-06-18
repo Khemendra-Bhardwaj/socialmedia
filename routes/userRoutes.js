@@ -13,7 +13,7 @@ router.delete('/unfollow/:followingid/:followerid', unfollowUser )
 router.post('/follow/:followingid/:followerid', followUser) 
 
 
-router.get('/', getUser)
+router.get('/:id', getUser)
 router.post('/', addUser)
 router.put('/:id', updateUser)
 router.delete('/:id', deleteUser)

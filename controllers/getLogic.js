@@ -2,8 +2,12 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
 
 const getUser  = async (req, res) => {
+    const id = parseInt(req.params.id)
     try {
         const result = await prisma.user.findMany({
+            where:{
+                userid :  id 
+            },
             include: {
                 posts: true,
                 followers: true,
@@ -16,6 +20,9 @@ const getUser  = async (req, res) => {
         res.status(500).json({ error: "Error in Getting Users !" })
     }
 }
+
+
+
 
 const getPosts = async (req, res) => {
     try {

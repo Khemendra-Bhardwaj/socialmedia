@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 import Card from "./component/Card";
 
 function App() {
-  const [posts,setPosts] = useState([{"title":'meow'}])
+  const [posts,setPosts] = useState([])
 
  useEffect( ()=>{
   const fetchPosts = async()=>{
@@ -26,8 +26,9 @@ function App() {
 
 <div className="App">
   {/* TODO : Add User Name  */}
+  {/* TODO : Add Delete Comment Func */}
       {posts.map((post) => (
-        <Card key={post.id} title={post.title} content={post.content} postid={post.postid} />
+        <Card key={post.id} title={post.title} content={post.content} postid={post.postid} userid = {post.authorid}/>
       ))}
     </div>
       

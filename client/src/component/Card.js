@@ -3,9 +3,11 @@ import axios from 'axios';
 import './Card.css';
 
 
-const Card = ({ title, content,postid }) => { //  received postid as prop from App.js
+const Card = ({ title, content,postid , userid }) => { //  received postid as prop from App.js
   const [comments, setComments] = useState([])
   const [userComment, setUserComment] = useState('')
+
+  
   const handleFetchComments = async()=>{
     try{
       const response = await axios.get(`http://localhost:5000/comments/${postid}`)
@@ -42,6 +44,8 @@ const Card = ({ title, content,postid }) => { //  received postid as prop from A
 
   return (
     <div className="card">
+      {/* fetch user-name from userid  */}
+      <h2 className='user-name'>  dummy-user-name-asofNow </h2>
       <h2 className="card-title">{title}</h2>
       <p className="card-content">{content} </p>
       <button className="card-button" onClick={handleFetchComments}>Comments</button>
