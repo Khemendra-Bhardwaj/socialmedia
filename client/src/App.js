@@ -1,46 +1,26 @@
 import { useEffect,useState } from "react";
-import Card from "./component/Card";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-
-
+import Home from "./component/Home";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserProfile from "./component/DisplayUser";
+import CreatePost from "./component/CreatePost";
 function App() {
-  const [posts,setPosts] = useState([])
 
- useEffect( ()=>{
-  const fetchPosts = async()=>{
-    try{
-
-      // TODO: fetch limited/latest posts 
-      const response = await fetch('http://localhost:5000/post');
-      const data = await response.json() 
-      setPosts(data) 
-    } 
-    catch(err){
-      console.log("error fetching post ", err);
-    }
-  }
-  fetchPosts()
- }, [])
 
 
   return (
     <>
 
-<div className="App">
-  {/* TODO : Add User Name  */}
-  {/* TODO : Add Delete Comment Func */}
+    <Router>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/user/:userId" element={<UserProfile />} />
+        <Route path = "user/:userId/addPost" element={ <CreatePost />} /> 
+      </Routes>
+    </Router>
 
 
-    {posts.map((post) => (
-        <Card key={post.id} title={post.title} content={post.content} postid={post.postid} userid = {post.authorid}/>
-      ))}
 
- 
-  
-    </div>
-      
-        
+
     </>
   );
 }

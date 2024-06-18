@@ -19,7 +19,8 @@ const addUser = async (req, res) => {
 }
 
 const addPost  = async (req, res) => {
-    const { title, authorid } = req.body
+    const { title } = req.body
+    const authorid = parseInt(req.params.id)  
     console.log(title + "  " + authorid);
     try {
         const result = await prisma.post.create({

@@ -25,17 +25,13 @@ const UserProfile = ()=>{
 
             console.log(followersList);
             console.log(followingList);
-            
 
             setFollowing(followingList)
             setFollowers(followersList) 
-            
-                    
-            
+
             setUserPosts(postList) 
             console.log(postList);
 
-            // console.log(response) ;
         }
         fetchName()
 
@@ -55,7 +51,7 @@ const UserProfile = ()=>{
                     userPosts.map( (post)=>( <li>{post.postid} : {post.title}  </li> ) )
                 }
             </ul>
-                
+
             <h3> Followers   </h3>  
             <ul> 
                 {
