@@ -1,0 +1,9 @@
+-- DropForeignKey
+ALTER TABLE "Like" DROP CONSTRAINT "Like_userid_fkey";
+
+-- AlterTable
+ALTER TABLE "Like" ALTER COLUMN "userid" DROP NOT NULL,
+ALTER COLUMN "updatedAt" SET DEFAULT CURRENT_TIMESTAMP;
+
+-- AddForeignKey
+ALTER TABLE "Like" ADD CONSTRAINT "Like_userid_fkey" FOREIGN KEY ("userid") REFERENCES "User"("userid") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -7,8 +7,8 @@ import { deleteComment } from '../controllers/deleteLogic.js'
 
 const router = express.Router()
 
-router.get('/', getComment)
-router.post('/', addComment)
+router.get('/:id', getComment)
+router.post('/:id', addComment)
 router.put('/:id', updateComment)
 router.delete('/:id', deleteComment); 
 

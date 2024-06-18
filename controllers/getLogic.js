@@ -7,7 +7,7 @@ const getUser  = async (req, res) => {
             include: {
                 posts: true,
                 followers: true,
-                following : true
+                following : true 
             }
         })
         res.send(result)
@@ -32,17 +32,12 @@ const getPosts = async (req, res) => {
 
 }
 
-
 const getComment = async (req, res) => {
+    const id = parseInt(req.params.id) 
     try {
-        const results = await prisma.user.findMany({
-            select: {
-                name: true,
-                posts: {
-                    select: {
-                        comment: true
-                    }
-                }
+        const results = await prisma.comment.findMany({
+            where:{
+                parentPostid : id 
             }
         });
 

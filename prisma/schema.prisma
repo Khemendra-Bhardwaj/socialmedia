@@ -20,6 +20,9 @@ model User{
   posts Post[] // User would contain posts !
   followers UserFollow[]@relation("Followers") // Users have Followers 
   following UserFollow[] @relation("Following")  // Users Will Follow Other Users 
+  like Like[]
+  createdAt DateTime @default(now()) // User Creation time : on signup 
+  updatedAt DateTime @updatedAt @default(now())// User modify its name or posts or  comments  
 }
 
 model Post{
@@ -28,6 +31,10 @@ model Post{
   authorid Int
   author User @relation(fields: [authorid], references: [userid])
   comment Comment[]  // Post would contain Comments  
+  like Like[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now()) 
+
 }
 
 
@@ -36,6 +43,9 @@ model Comment{
   content String 
   parentPostid Int
   parentPost Post @relation(fields: [parentPostid], references: [postid]) 
+  like Like[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now()) 
 }
 
 
@@ -47,3 +57,18 @@ model UserFollow{
   following User @relation("Following", fields: [followingId], references: [userid])
   @@unique([followerId,followingId])
 }
+
+model Like{
+  id Int @id @default(autoincrement())
+  userid Int?
+  Author User? @relation(fields: [userid], references: [userid])
+
+  postid Int?
+  ParentPost  Post? @relation(fields: [postid], references: [postid])
+  commentId Int?
+  ParentComment Comment? @relation(fields: [commentId], references: [commentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now()) 
+}
+
+

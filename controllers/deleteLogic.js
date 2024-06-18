@@ -52,11 +52,9 @@ const deleteFollowUnfollow  = async(userid)=>{
                 ] 
             }
         })
-        // res.json({message : "Deleted all followers and following  "})
     }
     catch(err){
         console.log(err);
-        // res.status(500).json({error : "Can't delete user : due to unfollow-follow referencial"})
     }
 }
 
