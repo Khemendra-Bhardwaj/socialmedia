@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Card.css';
+import { AiOutlineLike } from "react-icons/ai";
+
 
 
 const Card = ({ title, content,postid , userid }) => { //  received postid as prop from App.js
   const [comments, setComments] = useState([])
   const [userComment, setUserComment] = useState('')
   const [userName, setUserName]  = useState("Dummy-Name-AsofNow") 
+  const [likeCounter, setLikeCounter]  = useState(0)
 
   useEffect( ()=>{
     const getUserName = async()=>{
@@ -14,7 +17,15 @@ const Card = ({ title, content,postid , userid }) => { //  received postid as pr
       const receivedName = response.data[0].name
       setUserName(receivedName) 
     }
+    const getLikeCount = async ()=>{
+      const response = await axios.get(`http://localhost:5000/like/likeCounter/${postid}`)
+      const {count} = response.data 
+      setLikeCounter(count)
+    }
+    
     getUserName()
+    getLikeCount()
+
   }
 , [] )
 
@@ -53,6 +64,15 @@ const Card = ({ title, content,postid , userid }) => { //  received postid as pr
     window.open(`/user/${userid}`, '_blank'); // Opens new tab with user profile page
   };
   
+  const handlePostLike = async()=>{
+    try{
+      const result = await axios.post(`http://localhost:5000/users/like/${userid}/${postid}`,{})
+      alert('Liked Done ')
+     } 
+    catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     <div className="card">
@@ -65,7 +85,8 @@ const Card = ({ title, content,postid , userid }) => { //  received postid as pr
       <button className="card-button" onClick={handleFetchComments}>Comments</button>
       <textarea onChange={(e)=>setUserComment(e.target.value)} value={userComment} placeholder='Write Comment ...' />   
       <button  className="card-button" onClick={handlePushUserComment} > PostComment </button>
-
+      <button onClick={handlePostLike} > <AiOutlineLike  style={ {width:'100px', height : '20px' }}/>  </button> 
+      <p> Like Counter {likeCounter}</p>
       <div className="comment-list">
         {comments.length > 0 && (
           <ul>

@@ -1,6 +1,11 @@
 import  React, { useEffect, useState }  from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router'
+import FollowerList  from './FollowerList'
+import FollowingList from './FollowingList'
+import PostList from './PostList'
+import ComeBackHome from './ComeBackHome'
+
 const UserProfile = ()=>{
     const {userId} = useParams()
 
@@ -45,27 +50,11 @@ const UserProfile = ()=>{
             <h3> Email {userData.email} </h3>
 
             {/* TODO : Make Users Post displayed in styled Way , Pending to Add Liked Feature */}
-            <h3> Posts </h3> 
-            <ul> 
-                {
-                    userPosts.map( (post)=>( <li>{post.postid} : {post.title}  </li> ) )
-                }
-            </ul>
-
-            <h3> Followers   </h3>  
-            <ul> 
-                {
-                    followers.map( (user)=>( <li>{user.followingId}   </li> ) )
-                }
-            </ul>
-
-            <h3> Following   </h3>
-            <ul> 
-                {
-                    following.map( (user)=>( <li>{user.followerId}   </li> ) )
-                }
-            </ul>
             
+            <ComeBackHome/> 
+            <PostList  userPosts={userPosts} userid={userId}/>
+            <FollowerList followers={followers}/>
+            <FollowingList following={following}/>  
 
 
         </div>

@@ -22,13 +22,36 @@ const getUser  = async (req, res) => {
 }
 
 
+const getAllUsers = async(req,res )=>{
+    try{
+        const result = await prisma.user.findMany({
+            include:{
+                posts: {
+                    include: {
+                        comment: false  
+                    }
+                },
+                followers: true, 
+                following: true   
+            }
+        })
+        res.json(result)
+    }
+    catch(err){
+        res.status(500).json({Error : "Error in fetching All Users !"}) 
+    }
+}
+
+
 
 
 const getPosts = async (req, res) => {
     try {
         const result = await prisma.post.findMany({
             include: {
-                comment: true
+                comment: true,
+                like: true
+
             }
         })
         res.json(result)
@@ -45,6 +68,9 @@ const getComment = async (req, res) => {
         const results = await prisma.comment.findMany({
             where:{
                 parentPostid : id 
+            },
+            include:{
+                like: true 
             }
         });
 
@@ -55,6 +81,6 @@ const getComment = async (req, res) => {
         res.status(500).send("Error in fetching Users  Comments ")
     }
 }
-export  {getUser, getPosts , getComment}; 
+export  {getUser, getPosts , getComment , getAllUsers }; 
 // export default getUtisl ={ getUser:  getUser} 
 
