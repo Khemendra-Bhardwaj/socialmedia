@@ -28,7 +28,7 @@ Backend Setup
 Clone the repository:
 
 
-git clone git@github.com:Khemendra-Bhardwaj/socialmedia.git
+"git clone git@github.com:Khemendra-Bhardwaj/socialmedia.git"
 cd social-media-clone
 
 Install dependencies:
